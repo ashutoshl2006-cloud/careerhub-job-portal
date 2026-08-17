@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { allApplications, allJobs, dashboard, removeJob, toggleBlock, users } from "../controllers/adminController.js";
+import { protect, roles } from "../middleware/authMiddleware.js";
+const router = Router();
+router.use(protect, roles("Admin"));
+router.get("/dashboard", dashboard);
+router.get("/users", users);
+router.put("/users/:id/block", toggleBlock);
+router.get("/jobs", allJobs);
+router.delete("/jobs/:id", removeJob);
+router.get("/applications", allApplications);
+export default router;

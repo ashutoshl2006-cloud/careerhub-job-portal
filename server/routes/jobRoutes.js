@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { createJob, deleteJob, getJob, listJobs, updateJob } from "../controllers/jobController.js";
+import { protect, roles } from "../middleware/authMiddleware.js";
+const router = Router();
+router.get("/", listJobs);
+router.get("/:id", getJob);
+router.post("/", protect, roles("Employer"), createJob);
+router.put("/:id", protect, roles("Employer"), updateJob);
+router.delete("/:id", protect, roles("Employer"), deleteJob);
+export default router;

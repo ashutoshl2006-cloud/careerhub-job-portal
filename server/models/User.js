@@ -1,0 +1,15 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ["Admin", "Employer", "Job Seeker"], default: "Job Seeker" },
+  phone: String,
+  profileImage: String,
+  resume: String,
+  blocked: { type: Boolean, default: false },
+  savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }]
+}, { timestamps: true });
+
+export default mongoose.model("User", userSchema);

@@ -1,0 +1,2 @@
+import {useEffect,useState} from "react";import api from "../../services/api";
+export default function AdminDashboard(){const [s,setS]=useState({});useEffect(()=>{api.get("/admin/dashboard").then(r=>setS(r.data))},[]);return <main className="container py-10"><h1 className="text-4xl font-black">Admin Dashboard</h1><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{Object.entries(s).map(([k,v])=><div className="card" key={k}><p className="text-sm capitalize text-slate-500">{k}</p><p className="mt-2 text-4xl font-black">{v}</p></div>)}</div></main>}

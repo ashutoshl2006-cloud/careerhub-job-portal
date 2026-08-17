@@ -1,0 +1,7 @@
+import { useState } from "react";
+import api from "../services/api";
+export default function Contact(){
+ const [form,setForm]=useState({name:"",email:"",subject:"",message:"",feedback:""});const [msg,setMsg]=useState("");
+ async function submit(e){e.preventDefault();await api.post("/contact",form);setMsg("Thanks! Your message was received.");}
+ return <main className="container py-10"><div className="grid gap-8 md:grid-cols-2"><div><h1 className="text-4xl font-black">Contact Us</h1><p className="mt-4 text-slate-500">Questions, feedback or partnership ideas? Send us a message.</p><div className="mt-8 card"><h2 className="font-bold">FAQs</h2><p className="mt-3 text-sm text-slate-500">Can I apply without an account? You need a Job Seeker account to submit applications.</p></div></div><form onSubmit={submit} className="card"><label className="label">Name<input className="input" required value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/></label><label className="label">Email<input className="input" type="email" required value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/></label><label className="label">Subject<input className="input" value={form.subject} onChange={e=>setForm({...form,subject:e.target.value})}/></label><label className="label">Message<textarea className="input min-h-32" required value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/></label><button className="btn-primary mt-2">Send Message</button>{msg&&<p className="mt-3 text-indigo-600">{msg}</p>}</form></div></main>;
+}

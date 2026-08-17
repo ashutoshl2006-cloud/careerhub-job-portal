@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { profile, toggleSavedJob, updateProfile, uploadResume } from "../controllers/userController.js";
+import { protect, roles } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/uploadMiddleware.js";
+const router = Router();
+router.get("/profile", protect, profile);
+router.put("/profile", protect, updateProfile);
+router.post("/resume", protect, roles("Job Seeker"), upload.single("resume"), uploadResume);
+router.post("/saved/:jobId", protect, roles("Job Seeker"), toggleSavedJob);
+export default router;
